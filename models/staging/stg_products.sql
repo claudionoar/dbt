@@ -14,7 +14,7 @@ SELECT
     product_name_lenght,
     product_description_lenght,
     product_photos_qty,
-    cast(product_weight_g as integer)
+    CAST(product_weight_g AS integer) AS product_weight_g,
     product_length_cm,
     product_height_cm,
     product_width_cm

@@ -22,7 +22,7 @@ select
     predictions.predicted_at,
     (predictions.true_label = predictions.predicted_label_hardcode) as hardcode_correct,
     (predictions.true_label = predictions.predicted_label_sklearn) as sklearn_correct,
-    customers.state as customer_state
+    customers.estado as estado
 from predictions
 left join orders on predictions.order_id = orders.order_id
 left join customers on orders.customer_key = customers.customer_key

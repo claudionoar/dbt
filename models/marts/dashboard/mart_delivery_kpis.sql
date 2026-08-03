@@ -2,24 +2,24 @@
 -- por estado do cliente - a mesma pergunta de negócio que orienta mart_late_delivery_features,
 -- em formato pronto para visualização (ex.: priorizar intervenção logística por região).
 
-with orders as (
-    select * from {{ ref('fact_orders') }}
+WITH orders AS (
+    SELECT * FROM {{ ref('fact_orders') }}
 ),
 
-customers as (
-    select * from {{ ref('dim_customers') }}
+customers AS (
+    SELECT * FROM {{ ref('dim_customers') }}
 )
 
-select
-    customers.state as customer_state,
-    count(*) as order_count,
-    sum(case when orders.is_late then 1 else 0 end) as late_count,
-    sum(case when orders.is_late then 1 else 0 end) / nullif(count(*), 0)::float as pct_late,
-    avg(orders.delivery_days) as avg_delivery_days,
-    avg(orders.estimated_delivery_days) as avg_estimated_delivery_days
-from orders
-left join customers on orders.customer_key = customers.customer_key
-where orders.order_status = 'delivered'
-    and orders.order_delivered_customer_date is not null
-    and orders.order_estimated_delivery_date is not null
-group by customers.state
+SELECT
+    customers.estado AS estado,
+    count(*) AS order_count,
+    sum(case when orders.is_late then 1 else 0 end) AS late_count,
+    sum(case when orders.is_late then 1 else 0 end) / nullif(count(*), 0)::float AS pct_late,
+    avg(orders.delivery_days) AS avg_delivery_days,
+    avg(orders.estimated_delivery_days) AS avg_estimated_delivery_days
+FROM orders
+LEFT JOIN customers ON orders.customer_key = customers.customer_key
+WHERE orders.order_status = 'delivered'
+    AND orders.order_delivered_customer_date is not null
+    AND orders.order_estimated_delivery_date is not null
+GROUP BY customers.estado

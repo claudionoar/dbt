@@ -37,8 +37,8 @@ item_agg as (
     select
         items.order_id,
         count(*) as item_count,
-        sum(items.price) as total_price,
-        sum(items.freight_value) as total_freight,
+        sum(items.preco) as total_price,
+        sum(items.frete) as total_freight,
         avg(products.product_weight_g) as avg_product_weight_g,
         avg(products.product_volume_cm3) as avg_product_volume_cm3
     from items
@@ -64,9 +64,9 @@ payment_agg as (
 customer_geo as (
     select
         customers.customer_key,
-        customers.state,
-        geolocation.lat,
-        geolocation.lng
+        customers.estado,
+        geolocation.latitude,
+        geolocation.longitude
     from customers
     left join geolocation on customers.zip_code_prefix = geolocation.zip_code_prefix
 ),
@@ -74,9 +74,9 @@ customer_geo as (
 seller_geo as (
     select
         sellers.seller_key,
-        sellers.state,
-        geolocation.lat,
-        geolocation.lng
+        sellers.estado,
+        geolocation.latitude,
+        geolocation.longitude
     from sellers
     left join geolocation on sellers.zip_code_prefix = geolocation.zip_code_prefix
 )
@@ -95,10 +95,10 @@ select
     orders.estimated_delivery_days,
     dayofweek(orders.order_purchase_timestamp) as purchase_dow,
     month(orders.order_purchase_timestamp) as purchase_month,
-    haversine(customer_geo.lat, customer_geo.lng, seller_geo.lat, seller_geo.lng) as distance_km,
-    iff(customer_geo.state = seller_geo.state, 1, 0) as same_state_flag,
-    customer_geo.state as customer_state,
-    seller_geo.state as seller_state
+    haversine(customer_geo.latitude, customer_geo.longitude, seller_geo.latitude, seller_geo.longitude) as distance_km,
+    iff(customer_geo.estado = seller_geo.estado, 1, 0) as same_state_flag,
+    customer_geo.estado as customer_state,
+    seller_geo.estado as seller_state
 from orders
 inner join item_agg on orders.order_id = item_agg.order_id
 left join payment_agg on orders.order_id = payment_agg.order_id

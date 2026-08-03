@@ -18,8 +18,8 @@ select
     products.product_key,
     sellers.seller_key,
     order_items.shipping_limit_date,
-    order_items.price,
-    order_items.freight_value
+    order_items.preco,
+    order_items.frete
 from order_items
 left join products on order_items.product_id = products.product_id
 left join sellers on order_items.seller_id = sellers.seller_id

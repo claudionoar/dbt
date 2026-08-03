@@ -8,9 +8,9 @@ with geolocation as (
 
 select
     zip_code_prefix,
-    avg(lat) as lat,
-    avg(lng) as lng,
-    mode(city) as city,
-    mode(state) as state
+    avg(latitude) as latitude,
+    avg(longitude) as longitude,
+    mode(cidade) as cidade,
+    mode(estado) as estado
 from geolocation
 group by zip_code_prefix
