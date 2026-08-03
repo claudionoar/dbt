@@ -14,8 +14,8 @@ select
     reviews.order_id,
     orders.order_key,
     reviews.review_score,
-    reviews.review_comment_title,
-    reviews.review_comment_message,
+    reviews.titulo,
+    reviews.mensagem,
     reviews.sentiment_label,
     reviews.review_creation_date,
     reviews.review_answer_timestamp
