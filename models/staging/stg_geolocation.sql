@@ -1,4 +1,4 @@
--- Camada STAGING da raw.geolocation
+-- Camada STAGING de raw.geolocation
 -- geolocation_zip_code_prefix é a CHAVE DE NEGÓCIO (string longa vinda da origem).
 -- A chave substituta (SK) só será gerada na dimensão, não aqui. 
 

@@ -1,4 +1,4 @@
--- Camada STAGING: raw.products
+-- Camada STAGING de raw.products
 -- product_id é a chave de negócio. Atributos descritivos (categoria, peso)
 -- moram AQUI e depois na dimensão -- nunca na fato.
 

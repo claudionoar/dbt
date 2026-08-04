@@ -1,3 +1,7 @@
+-- Camada STAGING de raw.ml_predictions
+ 
+-- {{ config(materialized='view') }}
+
 WITH source AS (
     select * FROM {{ source('raw', 'ml_predictions') }}
 )

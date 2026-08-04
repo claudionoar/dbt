@@ -1,4 +1,5 @@
--- Camada STAGING: espelha a fonte crua (orders) com padronização mínima.
+-- Camada STAGING de raw.orders
+-- espelha a fonte crua (orders) com padronização mínima.
 -- Regra da aula: no staging fazemos pouca ou nenhuma transformação, só limpeza
 -- leve de nomes/tipos. Nada de regra de negócio aqui.
 

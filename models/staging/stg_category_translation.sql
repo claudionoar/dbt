@@ -1,4 +1,4 @@
--- Camada STAGING da raw.category_translation
+-- Camada STAGING de raw.category_translation
 
 -- {{ config(materialized='view') }}
 

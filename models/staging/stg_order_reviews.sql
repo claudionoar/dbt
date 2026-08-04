@@ -1,6 +1,7 @@
--- Camada STAGING: itens de pedido (order_reviews).
--- Esta é a tabela que define o GRÃO da nossa fato: 1 linha por item de pedido.
--- É aqui que vivem as medidas cruas (price, freight_value).
+-- Camada STAGING de raw.order_reviews.
+-- As colunas NÃO ESTRUTURADAS são review_comment_title e review_comment_message.
+-- Aqui as tratamos e delas derivamos colunas estruturadas, testáveis.
+-- Materializado como VIEW: não persiste tabela física.
  
 -- {{ config(materialized='view') }}
 
@@ -17,13 +18,19 @@ limpo AS (
         review_answer_timestamp,
  
         ----------------------------------------------------------------
-        -- 1. LIMPEZA do texto cru (title e message)
-        --    - vazio/whitespace -> NULL
-        --    - remove quebras de linha internas (caso da linha 29 da planilha)
+        -- Tratamento do texto NÃO ESTRUTURADO, tudo em SQL programável:
+        -- LIMPEZA do texto cru (title e message)
         ----------------------------------------------------------------
+
+        -- 1. normaliza vazios: string em branco -> NULL
         nullif(trim(regexp_replace(review_comment_title,   '[\n\r]+', ' ')), '') AS titulo,
-        nullif(trim(regexp_replace(review_comment_message, '[\n\r]+', ' ')), '') AS mensagem
- 
+
+        -- 2. remove quebras de linha internas que bagunçam o texto livre
+        nullif(trim(regexp_replace(review_comment_message, '[\n\r]+', ' ')), '') AS mensagem,
+
+        -- 3. deriva features simples do texto (comprimento, tem comentário?)
+        length(trim(review_comment_message)) as tamanho_comentario 
+
     FROM source 
 )
  

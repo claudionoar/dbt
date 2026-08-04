@@ -1,4 +1,4 @@
--- Camada STAGING: itens de pedido (order_items).
+-- Camada STAGING de raw.order_items
 -- Esta é a tabela que define o GRÃO da nossa fato: 1 linha por item de pedido.
 -- É aqui que vivem as medidas cruas (price, freight_value).
  

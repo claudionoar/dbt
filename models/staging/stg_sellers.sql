@@ -1,4 +1,4 @@
--- Camada STAGING: vendedores (olist_sellers).
+-- Camada STAGING de raw.sellers
 -- seller_id é a chave de negócio.
 
 -- {{ config(materialized='view') }}
